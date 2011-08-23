@@ -12,19 +12,20 @@
 
 #include "dylanstdhdr.h"
 
-#define HARMONIC_MEAN(X,Y) (1/((1/2)*((1/(X))+(1/(Y)))))
+#define HARMONIC_MEAN(X,Y) (1 / (((1/x) + (1/y)) / 2))
 
 typedef char * string;
 
 void printHarmMean(double, double);
 
 int main (void) {
-  for(int i = 1, j = 10; i < 10; i++, j*=i) {
+  for(int i = 1, j = 10; i < 100; i*=2, j*=2) {
     printHarmMean(i,j);
   }
   return 0;
 }
 
 void printHarmMean(double x, double y) {
-  fprintf(stdout, "\nharmonic mean of %lf, %lf is: %lf",x,y, HARMONIC_MEAN(x,y));
+  fprintf(stdout, "\nharmonic mean of %lf, %lf is: %lf",x,y, 
+	  HARMONIC_MEAN(x,y) );
 }
