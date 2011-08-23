@@ -19,6 +19,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
+#include <math.h>
 
 #ifdef DEBUG
   #define Dd(X) (fprintf(stderr, #X " digit value : %d\n", (X)), (X) )
