@@ -8,8 +8,8 @@ MODULES := $^
 SOURCES := $(MODULES).c 
 OBJECTS = $(patsubst %.c, %.o, %(SOURCES))
 
-ifeq( $(DEBUG), true)
-	CFLAGS += DDEBUG -g
+ifeq ($(DEBUG),true)
+	CFLAGS+=DDEBUG -g
 endif
 
 all: 
