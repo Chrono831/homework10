@@ -9,7 +9,7 @@ SOURCES := $(MODULES).c
 OBJECTS = $(patsubst %.c, %.o, %(SOURCES))
 
 ifeq ($(DEBUG),true)
-	CFLAGS+=DDEBUG -g
+	CFLAGS+=-DDEBUG -g
 endif
 
 all: 
