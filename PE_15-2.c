@@ -10,14 +10,16 @@
  *
  */
 
+#include "dylanstdhdr.h"
+
 
 typedef char * string;
 
 
 
 int main (int argc, char *argv[]) {
+  printf("Hello world!\n");
 
-
-return 0;
+  return 0;
 }
 
