@@ -18,12 +18,12 @@ void lottery(int *, int, int);
 
 int main (void) {
   srand(time(NULL));
-  int size = rand() % 1000 + 1; //size 1 -> 1000
+  int size = rand() % 1000000 + 1000; //size 1 -> INT_MAX
   int arr[size];
   for(int i = 0; i < size; i++) {
-    arr[i] = i;
+    arr[i] = rand() % 100;
   }//populate array
-  lottery(arr, size, 10);
+  lottery(arr, size, (rand() % 25 + 1));
   
   return 0;
 }
@@ -40,7 +40,6 @@ void lottery(int *arr, int arrSize, int picks) {
     } while(picked[j]);
     fprintf(stdout, "%d ",arr[j]);  
     picked[j] = true;
-    
   }
   fprintf(stdout,"\n");
 }
