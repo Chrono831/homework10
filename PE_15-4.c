@@ -14,11 +14,23 @@
 
 typedef char * string;
 
+void wait(double);
+
+int main (void) {
+  double delay = 1;
+  for(int i = 0; i < 10; i++) {
+    putchar('i');
+    wait(delay);
+  }
 
 
-int main (int argc, char *argv[]) {
-
-
-return 0;
+  return 0;
 }
 
+//time is in seconds
+void wait(double time) {
+  clock_t start = clock();
+  while ( ( ((double)(clock() - start)) / (CLOCKS_PER_SEC) ) < time )
+    ; //wait
+  return;
+}
