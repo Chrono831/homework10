@@ -8,6 +8,8 @@
  *
  * Created: Aug 24 2011 16:38:06
  *
+ * Randomly picks name pairs; sorts by first name then last name.
+ *
  */
 
 
@@ -16,13 +18,18 @@ typedef char * string;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-#define NUM 10
+#define NUM 30
+#define MAX_STRLEN 40
+#define NUM_NAMES 12
 
-const string firstNameList[] = { "Ben", "Dan", "Tim", "Kyle", "Brad",
-			       "Lisa", "Emma", "Abby", "Kim", "Val" };
-const string lastNameList[] = { "Jones", "Thompson", "Kim", "Nyguen", "Vu",
-			      "Tran", "Potter", "Weasley", "Malfoy", "deMort" };
+const string firstNameList[] = {
+  "Harry", "Ron", "Lucious", "Val", "Sirius", "Shinji", "Rei", "Asuka", "Misato",
+  "Touji", "Keisuke", "Kaworu" };
+const string lastNameList[] = { 
+    "Potter", "Weasley", "Malfoy", "deMort", "Black", "Ikari", "Ayanami",
+    "Langley Sohryu", "Katsuragi", "Susuhara", "Iida", "Nagisa" };
 
 typedef struct {
   string first;
@@ -32,52 +39,53 @@ typedef struct {
 void fillarray(names ar[], int n);
 void showarray(const names ar[], int n);
 int mycomp(const void * p1, const void * p2);
+int complast(const void *p1, const void *p2);
+int compfirst(const void *p1, const void *p2);
 
 int main(void) {
   names vals[NUM];
   fillarray(vals, NUM);
   printf("Random list:\n");
   showarray(vals, NUM);
-  qsort(vals, NUM, sizeof(double), mycomp);
+  qsort(vals, NUM, sizeof(names), mycomp);
   printf("\nSorted list (by First then Last name):\n");
   showarray(vals, NUM);
   return 0;
 }
 
 void fillarray(names ar[], int n) {
+  srand( time(NULL) );
   for(int i = 0; i < n; i++) {
-    names temp;
-    temp.first = firstNameList[i % NUM ];
-    temp.last = lastNameList[i % NUM];
-    ar[i] = temp;
+    (ar + i)->first = firstNameList[rand() % (NUM_NAMES ) ];
+    (ar + i)->last = lastNameList[rand() % (NUM_NAMES )];
   }
 }
 
 void showarray(const names ar[], int n) {
-  int i;
-  for(i = 0; i < n; i++) {
-    names temp = ar[i];
-    printf("%s %s\n", temp.first, temp.last);
+  for(int i = 0; i < n; i++) {
+    printf("%s %s\n", (ar + i)->first, (ar + i)->last);
   }
-  if (i % 6 != 0) putchar('\n');
 }
 
-/* sort by first name, last name */
+/* sort by first name then last name */
 int mycomp(const void * p1, const void * p2) {
-  /* need to use pointers to double to access values   */
+  int comp[] = { compfirst(p1, p2), complast(p1, p2) };
+  if (comp[0] == 1) { return 1; } //first wins
+  if (comp[0] == -1) { return -1; } //first loses
+  //first is a tie
+  if (comp[1] == 1) { return 1; } //last wins
+  if (comp[1] == -1) { return -1; } //last loses
+  return 0;  //names both the same
+}
+
+int compfirst(const void *p1, const void *p2) {
   const names *a1 = (const names *) p1;
   const names *a2 = (const names *) p2;
-  if (strncmp(a1->first,a2->first, 40) > 0)
-    return 1;
-  else if (strncmp(a1->first,a2->first, 40) == 0) {
-    //    if (strncmp(a1->last,a2->last, 40) > 0)
-    //  return 1;
-    // else if (strncmp(a1->last,a2->last, 40) < 0)
-    //  return -1;
-    //else
-      return 0; 
-  } else
-    return -1;
+  return strcmp(a1->first, a2->first);
 }
 
-  
+int complast(const void *p1, const void *p2) {
+  const names *a1 = (const names *) p1;
+  const names *a2 = (const names *) p2;
+  return strcmp(a1->last, a2->last);
+} 
