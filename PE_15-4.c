@@ -12,21 +12,19 @@
 
 #include "dylanstdhdr.h"
 
-typedef char * string;
-
 void wait(double);
 
 int main (void) {
-  
   double delay = 0.5;
   time_t start, finish;
   start = time(NULL);
   fprintf(stdout, "Waiting 10 seconds.\nStart time  : %ld\n", start);
-  for(int i = 0; i < 20; i++) { wait(delay); }
+  for(int i = 0; i < 20; i++) { 
+    wait(delay); 
+  }
   finish = time(NULL);
   fprintf(stdout, "Finish time : %ld\n", finish);
   fprintf(stdout, "Delta time  : %ld\n", (finish-start) );
-
   return 0;
 }
 

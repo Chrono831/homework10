@@ -12,8 +12,6 @@
 
 #include "dylanstdhdr.h"
 
-typedef char * string;
-
 void lottery(int *, int, int);
 
 int main (void) {
@@ -24,10 +22,8 @@ int main (void) {
     arr[i] = rand() % 100;
   }//populate array
   lottery(arr, size, (rand() % 25 + 1));
-  
   return 0;
 }
-
 
 void lottery(int *arr, int arrSize, int picks) {
   fprintf(stdout,"The following %d numbers have been picked:\n", picks);

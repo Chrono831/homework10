@@ -14,9 +14,6 @@
 
 #define DEG_TO_RAD(X) (X * 4 * atan(1) / 180) 
 
-
-typedef char * string;
-
 typedef struct {
   double r;
   double A;

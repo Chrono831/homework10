@@ -10,24 +10,7 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-#include <ctype.h>
-#include <time.h>
-
-typedef char * string;
-
-#ifdef DEBUG
-  #define Dd(X) (fprintf(stderr, #X " digit value : %d\n", (X)), (X) )
-  #define Ds(X) (fprintf(stderr, #X " string value : %s\n", (X)), (X) )
-  #define Df(X) (fprintf(stderr, #X " float value : %f\n", (X)), (X) )
-#else
-  #define Df(X) (X) 
-  #define Df(X) (X)
-  #define Df(X) (X)
-#endif
+#include "dylanstdhdr.h"
 
 void writeHeader(FILE *, string);
 
@@ -37,25 +20,44 @@ int main (int argc, char *argv[]) {
     fprintf(stderr, "Usage: FileStarter <filename>\n");
     exit(1);
   }
-  string filename = argv[1];
-
-  fout = fopen(filename, "w");
-  if (fout == NULL) {
-    fprintf(stderr, "Error opening %s\n",filename);
+  if ( (fout = fopen(argv[1], "w")) == NULL) {
+    fprintf(stderr, "Error opening %s\n",argv[1]);
     exit(1);
   } 
-  writeHeader(fout, filename);
+  writeHeader(fout, argv[1]);
   fclose(fout);
-  
   return 0;
 }
 
 
 void writeHeader(FILE *fout, string filename) {
-  fprintf(fout,"/**\n * Dylan Hall\n * dylanphall\n *\n "
-"* dylan.p.hall@gmail.com\n *\n * %s\n *\n * Created: %s %s\n *\n */\n\n\n"
-"typedef char * string;\n\n\n\nint main (int argc, char *argv[]) {\n\n\n"
-"return 0;\n}\n\n", filename, __DATE__, __TIME__);
+  fprintf(fout,
+	  "/**\n" 
+	  " * Dylan Hall\n"
+	  " * dylanphall\n"
+	  " *\n"
+	  " * dylan.p.hall@gmail.com\n"
+	  " *\n"
+	  " * %s\n"
+	  " *\n"
+	  " * Created: %s %s\n"
+	  " *\n"
+	  " * Comments: \n"
+	  " * \n"
+	  " */\n"
+	  "\n"
+	  "#include \"dylanstdhdr.h\"\n"
+	  "\n"
+	  "\n"
+	  "\n"
+	  "int main (int argc, char *argv[]) {\n"
+	  "  fprintf(stdout, \"Hello, World!\\n\");\n"
+	  "\n"
+	  "\n"
+	  "  return 0;\n"
+	  "}\n"
+	  "\n"
+	  , filename, __DATE__, __TIME__);
 }
 
 

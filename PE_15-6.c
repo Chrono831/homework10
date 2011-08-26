@@ -13,12 +13,7 @@
  */
 
 
-typedef char * string;
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include "dylanstdhdr.h"
 
 #define NUM 30
 #define MAX_STRLEN 40

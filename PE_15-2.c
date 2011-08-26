@@ -14,7 +14,6 @@
 
 #define HARMONIC_MEAN(X,Y) (1 / (((1/x) + (1/y)) / 2))
 
-typedef char * string;
 
 void printHarmMean(double, double);
 
